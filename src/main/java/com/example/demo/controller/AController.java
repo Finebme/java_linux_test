@@ -1,5 +1,10 @@
 package com.example.demo.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,15 +27,25 @@ public class AController {
 		
 		try {
 			path02 = AController.class.getClassLoader().getResource("temp/a.txt").getPath();
+			FileInputStream file = new FileInputStream(path02);
+			
 		}catch(Exception e) {
-			System.out.println("ACon class");
+			System.out.println("path02 wrong");
 		}
 		try {
 			path03 = new ClassPathResource("temp/a.txt").getPath();
+			FileInputStream file = new FileInputStream(path03);
 		}catch(Exception e) {
-			System.out.println("ACon class");
+			System.out.println("path03 wrong");
 		}
 
+		try {
+			InputStream file = new ClassPathResource("temp/a.txt").getInputStream();
+			int available = file.available();
+			System.out.println("path04 "+available);
+		}catch(Exception e) {
+			System.out.println("path04 wrong");
+		}
 		return "1:"+path01+"; 2:"+path02 +"; 3:"+path03;
 	}
 }
